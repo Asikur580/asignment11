@@ -45,7 +45,7 @@
                 <td>{{$product->price}}</td>
                 <td>
                     <a href="{{ route('product.sellForm', ['id' => $product->id]) }}" class="btn btn-success">Sell Product</a>
-                    <a href="{{ route('product.updateForm', ['id' => $product->id]) }}" class="btn btn-primary">Add Quantity</a>
+                    <a href="{{ route('product.updateForm', ['id' => $product->id]) }}" class="btn btn-primary">Edit Product</a>
                 </td>
             </tr>
 

@@ -30,7 +30,7 @@
             <label for="price">Price:</label>
             <input type="number" name="price" required>
 
-            <button type="submit" class="btn btn-primary">sell Product</button>
+            <button type="submit" class="btn btn-primary">Sell Product</button>
 
         </form>
 

@@ -28,11 +28,23 @@ class ProductController extends Controller
         $quantity = $request->input('quantity');
         $price = $request->input('price');
 
-        DB::table('products')->insert(
-            ['name' => $name, 'quantity' => $quantity, 'price' => $price]
-        );
+        //unique product name upload
 
-        return redirect('/product')->with('status', 'Product upload successfully');
+        $productName = DB::table('products')->where('name', $name)->first();
+
+        if (!$productName) {
+
+            DB::table('products')->insert(
+                ['name' => $name, 'quantity' => $quantity, 'price' => $price]
+            );
+
+            return redirect('/product')->with('status', 'Product upload successfully');
+
+        } else {
+
+            return redirect('/product')->with('status', 'Product name already exists.');
+            
+        }
     }
 
 
@@ -43,18 +55,44 @@ class ProductController extends Controller
 
         $product = DB::table('products')->where('id', $id)->first();
 
-        return view('addQuantity', compact('product'));
+        return view('editProduct', compact('product'));
     }
 
 
     public function update(Request $request)
     {
-        $id = $request->input('id');        
+        $id = $request->input('id');
+        $name = $request->input('name');
         $quantity = $request->input('quantity');
+        $price = $request->input('price');
 
-        DB::table('products')->where('id', $id)->update(['quantity' => $quantity]);
 
-        return redirect('/product')->with('status', 'Product update successfully');
+        //unique product name update
+
+        $product = DB::table('products')->where('id', $id)->first();
+
+        if ($name == $product->name) {
+
+            DB::table('products')->where('id', $id)->update(['quantity' => $quantity, 'price' => $price]);
+
+            return redirect('/product')->with('status', 'Product update successfully');
+
+        } else {
+
+            $productName = DB::table('products')->where('name', $name)->first();
+
+            if (!$productName) {
+
+                DB::table('products')->where('id', $id)->update(['name' => $name, 'quantity' => $quantity, 'price' => $price]);
+
+                return redirect('/product')->with('status', 'Product update successfully');
+
+            } else {
+
+                return redirect('/product')->with('status', 'Product name already exists.');
+
+            }
+        }        
     }
 
 
@@ -81,7 +119,7 @@ class ProductController extends Controller
         $newQuantity = $previousQuantity->quantity - $quantity;
 
         if ($newQuantity > 0) {
-            $quantityUpdate = DB::table('products')->where('id', $product_id)->update(['quantity' => $newQuantity]);
+            $quantityUpdate = DB::table('products')->where('id', $product_id)->update(['quantity' => $newQuantity,]);
 
             if ($quantityUpdate) {
 

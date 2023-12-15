@@ -11,7 +11,7 @@
 <body>
     <div class="container">
 
-        <h1 class="text-center text-light bg-success p-2">Add Quantity</h1>
+        <h1 class="text-center text-light bg-success p-2">Edit Product</h1>
         <a href="{{ route('product') }}" class="mb-2 text-center btn btn-success">Back</a>
 
         <form action="{{ route('product.update') }}" method="post">
@@ -21,10 +21,13 @@
             <input type="text" name="id" value="{{$product->id}}" hidden>
 
             <label for="name">Product Name:</label>
-            <input type="text" name="name" value="{{$product->name}}" readonly="readonly">
+            <input type="text" name="name" value="{{$product->name}}" required>
 
             <label for="quantity">Quantity:</label>
             <input type="number" name="quantity" value="{{$product->quantity}}" required>
+
+            <label for="price">Price:</label>
+            <input type="number" name="price" value="{{$product->price}}" required>
 
             <button type="submit" class="btn btn-primary">Update Product</button>
 
