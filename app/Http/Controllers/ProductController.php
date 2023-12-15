@@ -49,11 +49,10 @@ class ProductController extends Controller
 
     public function update(Request $request)
     {
-        $id = $request->input('id');
-        $name = $request->input('name');
+        $id = $request->input('id');        
         $quantity = $request->input('quantity');
 
-        DB::table('products')->where('id', $id)->update(['name' => $name, 'quantity' => $quantity]);
+        DB::table('products')->where('id', $id)->update(['quantity' => $quantity]);
 
         return redirect('/product')->with('status', 'Product update successfully');
     }
@@ -82,9 +81,9 @@ class ProductController extends Controller
         $newQuantity = $previousQuantity->quantity - $quantity;
 
         if ($newQuantity > 0) {
-            $priceUpdate = DB::table('products')->where('id', $product_id)->update(['quantity' => $newQuantity]);
+            $quantityUpdate = DB::table('products')->where('id', $product_id)->update(['quantity' => $newQuantity]);
 
-            if ($priceUpdate) {
+            if ($quantityUpdate) {
 
                 DB::table('sell_products')->insert(
                     ['product_id' => $product_id, 'name' => $name, 'quantity' => $quantity, 'price' => $price]

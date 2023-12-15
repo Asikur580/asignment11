@@ -21,7 +21,7 @@
             <input type="text" name="id" value="{{$product->id}}" hidden>
 
             <label for="name">Product Name:</label>
-            <input type="text" name="name" value="{{$product->name}}" readonly="readonly" required>
+            <input type="text" name="name" value="{{$product->name}}" readonly="readonly">
 
             <label for="quantity">Quantity:</label>
             <input type="number" name="quantity" value="{{$product->quantity}}" required>
